@@ -354,7 +354,7 @@ Wait 60 seconds for processing to complete
 
 **Create Validating Peer Nodes 1 - 3**
 
-vi hl-vp-v1-3.yml
+vi dep-hl-vp1-3.yml
 
 ```
 apiVersion: extensions/v1beta1
@@ -681,6 +681,13 @@ spec:
           # REST service listening port
           - containerPort: 5000
 ```
+
+Create the dep-hl-vp1-3.yml via
+
+```
+kubectl create -f dep-hl-vp1-3.yml
+```
+
 
 Verify the creation of the services, pods and deployments 
 
