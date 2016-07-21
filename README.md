@@ -17,14 +17,14 @@ The Validating Peer Services provide stable service address for the Validating P
 
 All of the work detailed should be performed on a system with the correct version of kubectl and has access to GKE and GCE.
 
-**Kubernete Cluster Setup**
+##Kubernete Cluster Setup
 
 This guide is build using **GKE** [Google Container Engine](https://cloud.google.com/container-engine) and **GCE** [Google Compute Engine](https://cloud.google.com/compute/)
 
 Setup a GKE (Google Container Engine) cluster with three nodes 
 Setup a single GCE (Google Compute Engine) instance to run the chain code
 
-**CORE_VM_ENDPOINT Setup** 
+##CORE_VM_ENDPOINT Setup
 
 Install docker on the GCE instance 
 
@@ -40,7 +40,7 @@ Record the IP Address of the GCE instance to use with the CORE_VM_ENDPOINT envir
 
 Update the CORE_VM_ENDPOINT_IP value with the GCE Instance IP address.
 
-**Validating Peer Kubernetes Service Setup**
+##Validating Peer Kubernetes Service Setup
 
 vi svc-hl-vp.yml
 
@@ -225,7 +225,7 @@ svc-hl-vp2                        10.95.252.221   104.199.152.169   30303/TCP,30
 svc-hl-vp3                        10.95.251.18    104.199.150.197   30303/TCP,30304/TCP,31315/TCP,5000/TCP   2h
 ```
 
-**Validating Peer Kubernetes Deployment Setup**
+##Validating Peer Kubernetes Deployment Setup
 
 The Validating Peer Deployements are time sensitive in startup and the VP0 has to be started first and given time to settle.
 
@@ -715,7 +715,7 @@ svc-hl-vp2                        10.95.252.221   104.199.152.169   30303/TCP,30
 svc-hl-vp3                        10.95.251.18    104.199.150.197   30303/TCP,30304/TCP,31315/TCP,5000/TCP   2h
 ```
 
-**Update GCE /etc/hosts**
+##Update GCE /etc/hosts
 
 The GCE instance has no knowledge of the GKE internal DNS used for Service Discovery.
 
@@ -739,7 +739,7 @@ gcloud compute --project "your-project-id" ssh --zone "your-zone" "core-vm-endpo
 ```
 
 
-**Verify Operation**
+##Verify Operation
 
 Obtain the name of a running pod
 ```
