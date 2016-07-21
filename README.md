@@ -1,6 +1,6 @@
 # OBM-Fabric
 
-**DRAFT**
+##DRAFT
 
 The objective of this code is to run Hyperledger under the control of Kubernetes to provide Production-Grade Container Orchestration for Hyperledger containers.
 
