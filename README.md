@@ -36,7 +36,7 @@ These images are currently stored on [Docker Hub](https://hub.docker.com/u/james
 * jamesbuckett/fabric-peer
 * jamesbuckett/fabric-baseimage
 
-The metadate label : version: "08122016" is used to version these images.
+The metadata label : version: "08122016" is used to version these images.
 
 These images are used in this project to build the fabric and run the chain code.
 
@@ -503,6 +503,7 @@ Sample Output
 
 ```
 peer chaincode query -n a5389f7dfb9efae379900a41db1503fea2199fe400272b61ac5fe7bd0c6b97cf10ce3aa8dd00cd7626ce02f18accc7e5f2059dae6eb0786838042958352b89fb  -c '{"Function": "query", "Args": ["a"]}'
+100
 ```
 
 
