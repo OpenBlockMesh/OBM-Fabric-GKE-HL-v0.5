@@ -301,10 +301,13 @@ Place your "ens4" interface value in the x.x.x.x in each file.
 
 Clone the project to the system running kubectl.
 
-cd k8s-hyperledger
+```
+git clone https://github.com/OpenBlockMesh/OBM-Fabric.git
+cd OBM-Fabric
 chmod +x hl-install.sh
 chmod +x hl-delete.sh
 chmod +x svc-hosts.sh
+```
 
 Run hl-install.sh to create the hyperledger fabric.
 
