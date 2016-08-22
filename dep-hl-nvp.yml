@@ -1,0 +1,505 @@
+# Kubernetes Manifest file to create a Hyperledger Non Validating Peer Fabric
+# Date : 22-08-2016
+# Version 0.2
+# Author : James Buckett (james.buckett@au1.ibm.com)
+# Commissioned by ANZ Bank under direction of Ben Smillie (Ben.Smillie@anz.com)
+
+# Important - Edit the following with values to match your environment
+# name: CORE_VM_ENDPOINT
+# value: "http://x.x.x.x:2375"
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: dep-pod-hl-nvp0
+  namespace: hyperledger
+  
+  labels:
+    # Label of this Deployment Pod
+    app: hl-nvp0
+    
+# Replica Specifications
+spec:
+  # One copy of the fabric in case of consistency issues
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hl-nvp0
+      
+  template:
+    metadata:
+      labels:
+        app: hl-nvp0
+        tier: non-validating-peer
+        version: "08122016"
+        environment: development
+        provider: gke
+        node: "node-vp0"
+        
+    # Container Specifications
+    spec:         
+      containers:
+      - name: nvp0
+        
+        # Fabric Peer docker image for Hyperledger Project
+        # https://github.com/hyperledger/fabric
+        # image: hyperledger/fabric-peer:latest
+        image: jamesbuckett/fabric-peer:08122016
+        imagePullPolicy: Always
+        
+        # Readiness Check
+        # Due to the size of Hyperledger images allow some time for image download
+        # The readiness probe will not be called until 60 seconds after the all containers in the pod are created. 
+        # The readiness probe must respond within the 5 second timeout.
+        readinessProbe:
+          httpGet:
+            # Ready Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+        
+        # Start as peer node
+        command:
+          - "peer"
+        args:
+          - "node"
+          - "start"
+        
+        # Environment
+        env:
+          # Set this validating node as nvp0
+          - name: CORE_PEER_ID
+            value: "nvp0"
+          # Root Node Service Location
+          - name: CORE_PEER_DISCOVERY_ROOTNODE
+            # value: "svc-hl-vp0.default.svc.cluster.local:30303"
+            value: "svc-hl-vp0.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_ADDRESSAUTODETECT
+            value: "false"
+          # Service name for the nvp0  
+          - name: CORE_PEER_ADDRESS
+            # value: "svc-hl-nvp0.default.svc.cluster.local:30303"      
+            value: "svc-hl-nvp0.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_NETWORKID
+            value: "dev"
+          - name: CORE_LOGGING_LEVEL
+            # value: "debug"
+            value: chaincode=debug:vm=debug:main=info
+            # Enable pbft consensus
+          - name: CORE_PEER_VALIDATOR
+            value: "false"
+          - name: CORE_PBFT_GENERAL_MODE
+            value: "batch"
+          - name: CORE_PBFT_GENERAL__BATCHSIZE
+            value: "2"                
+            # Four nodes minimum for pbft protocol
+          - name: CORE_PBFT_GENERAL_N
+            value: "4"
+          - name: CORE_PBFT_GENERAL_TIMEOUT_REQUEST
+            value: "10s"
+          - name: CORE_CHAINCODE_STARTUPTIMEOUT
+            value: "10000"
+          - name: CORE_CHAINCODE_DEPLOYTIMEOUT
+            value: "120000"
+            # Location for Chain Code Docker Engine
+            # Change this value to match your environment
+          - name: CORE_VM_ENDPOINT
+            value: "http://x.x.x.x:2375"
+        
+        # Health Check
+        livenessProbe:
+          httpGet:
+            # Health Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+        
+        # Communication Ports
+        ports:
+          # Peer service listening port
+          - containerPort: 30303
+          # CLI process use it for callbacks from chain code
+          - containerPort: 30304
+          # Event service on validating node
+          - containerPort: 31315
+          # REST service listening port
+          - containerPort: 5000
+          
+      # Assign this pod to node-vp0 for node resilence
+      nodeSelector:
+        node: node-vp0          
+--- 
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: dep-pod-hl-nvp1
+  namespace: hyperledger
+    
+  labels:
+    # Label of this Deployment Pod
+    app: hl-nvp1
+    
+# Replica Specifications
+spec:
+  # One copy of the fabric in case of consistency issues
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hl-nvp1
+      
+  template:
+    metadata:
+      labels:
+        app: hl-nvp1
+        tier: non-validating-peer
+        version: "08122016"
+        environment: development
+        provider: gke
+        node: "node-vp1"
+        
+    # Container Specifications
+    spec:         
+      containers:
+      - name: nvp1
+        
+        # Fabric Peer docker image for Hyperledger Project
+        # https://github.com/hyperledger/fabric
+        # image: hyperledger/fabric-peer:latest
+        image: jamesbuckett/fabric-peer:08122016
+        imagePullPolicy: Always
+        
+        # Readiness Check
+        # Due to size of Hyperledger images allow some time for image download
+        # The readiness probe will not be called until 60 seconds after the all containers in the pod are created. 
+        # The readiness probe must respond within the 5 second timeout.
+        readinessProbe:
+          httpGet:
+            # Ready Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+        
+        # Start as peer node
+        command:
+          - "peer"
+        args:
+          - "node"
+          - "start"
+        
+        # Environment
+        env:
+          # Set this validating node as nvp1
+          - name: CORE_PEER_ID
+            value: "nvp1"
+          # Root Node Service Location
+          - name: CORE_PEER_DISCOVERY_ROOTNODE
+            # value: "svc-hl-vp0.default.svc.cluster.local:30303"
+            value: "svc-hl-vp0.hyperledger.svc.cluster.local:30303"            
+          - name: CORE_PEER_ADDRESSAUTODETECT
+            value: "false"
+          # Service name for the nvp0  
+          - name: CORE_PEER_ADDRESS
+            # value: "svc-hl-nvp1.default.svc.cluster.local:30303"    
+            value: "svc-hl-nvp1.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_NETWORKID
+            value: "dev"
+          - name: CORE_LOGGING_LEVEL
+            # value: "debug"
+            value: chaincode=debug:vm=debug:main=info
+            # Enable pbft consensus
+          - name: CORE_PEER_VALIDATOR
+            value: "false"
+          - name: CORE_PBFT_GENERAL_MODE
+            value: "batch"
+          - name: CORE_PBFT_GENERAL__BATCHSIZE
+            value: "2"                
+            # Four nodes minimum for pbft protocol
+          - name: CORE_PBFT_GENERAL_N
+            value: "4"
+          - name: CORE_PBFT_GENERAL_TIMEOUT_REQUEST
+            value: "10s"
+          - name: CORE_CHAINCODE_STARTUPTIMEOUT
+            value: "10000"
+          - name: CORE_CHAINCODE_DEPLOYTIMEOUT
+            value: "120000"
+            # Location for Chain Code Docker Engine
+            # Change this value to match your environment
+          - name: CORE_VM_ENDPOINT
+            value: "http://x.x.x.x:2375"
+        
+        # Health Check
+        livenessProbe:
+          httpGet:
+            # Health Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+        
+        # Communication Ports
+        ports:
+          # Peer service listening port
+          - containerPort: 30303
+          # CLI process use it for callbacks from chain code
+          - containerPort: 30304
+          # Event service on validating node
+          - containerPort: 31315
+          # REST service listening port
+          - containerPort: 5000
+          
+      # Assign this pod to node-vp0 for node resilence
+      nodeSelector:
+        node: node-vp1          
+--- 
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: dep-pod-hl-nvp2
+  namespace: hyperledger
+    
+  labels:
+    # Label of this Deployment Pod
+    app: hl-nvp2
+    
+# Replica Specifications
+spec:
+  # One copy of the fabric in case of consistency issues
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hl-nvp2
+      
+  template:
+    metadata:
+      labels:
+        app: hl-nvp2
+        tier: non-validating-peer
+        version: "08122016"
+        environment: development
+        provider: gke
+        node: "node-vp2"
+        
+    # Container Specifications
+    spec:         
+      containers:
+      - name: nvp2
+        
+        # Fabric Peer docker image for Hyperledger Project
+        # https://github.com/hyperledger/fabric
+        # image: hyperledger/fabric-peer:latest
+        image: jamesbuckett/fabric-peer:08122016
+        imagePullPolicy: Always
+        
+        # Readiness Check
+        # Due to size of Hyperledger images allow some time for image download
+        # The readiness probe will not be called until 60 seconds after the all containers in the pod are created. 
+        # The readiness probe must respond within the 5 second timeout.
+        readinessProbe:
+          httpGet:
+            # Ready Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+        
+        # Start as peer node
+        command:
+          - "peer"
+        args:
+          - "node"
+          - "start"
+        
+        # Environment
+        env:
+          # Set this validating node as nvp0
+          - name: CORE_PEER_ID
+            value: "nvp2"
+          # Root Node Service Location
+          - name: CORE_PEER_DISCOVERY_ROOTNODE
+            # value: "svc-hl-vp0.default.svc.cluster.local:30303"
+            value: "svc-hl-vp0.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_ADDRESSAUTODETECT
+            value: "false"
+          # Service name for the nvp0  
+          - name: CORE_PEER_ADDRESS
+            # value: "svc-hl-nvp2.default.svc.cluster.local:30303"   
+            value: "svc-hl-nvp2.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_NETWORKID
+            value: "dev"
+          - name: CORE_LOGGING_LEVEL
+            # value: "debug"
+            value: chaincode=debug:vm=debug:main=info
+            # Enable pbft consensus
+          - name: CORE_PEER_VALIDATOR
+            value: "false"
+          - name: CORE_PBFT_GENERAL_MODE
+            value: "batch"
+          - name: CORE_PBFT_GENERAL__BATCHSIZE
+            value: "2"                
+            # Four nodes minimum for pbft protocol
+          - name: CORE_PBFT_GENERAL_N
+            value: "4"
+          - name: CORE_PBFT_GENERAL_TIMEOUT_REQUEST
+            value: "10s"
+          - name: CORE_CHAINCODE_STARTUPTIMEOUT
+            value: "10000"
+          - name: CORE_CHAINCODE_DEPLOYTIMEOUT
+            value: "120000"
+            # Location for Chain Code Docker Engine
+            # Change this value to match your environment
+          - name: CORE_VM_ENDPOINT
+            value: "http://10.140.0.6:2375"
+        
+        # Health Check
+        livenessProbe:
+          httpGet:
+            # Health Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+        
+        # Communication Ports
+        ports:
+          # Peer service listening port
+          - containerPort: 30303
+          # CLI process use it for callbacks from chain code
+          - containerPort: 30304
+          # Event service on validating node
+          - containerPort: 31315
+          # REST service listening port
+          - containerPort: 5000
+          
+      # Assign this pod to node-vp0 for node resilence
+      nodeSelector:
+        node: node-vp2          
+--- 
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: dep-pod-hl-nvp3
+  namespace: hyperledger
+    
+  labels:
+    # Label of this Deployment Pod
+    app: hl-nvp3
+    
+# Replica Specifications
+spec:
+  # One copy of the fabric in case of consistency issues
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hl-nvp3
+      
+  template:
+    metadata:
+      labels:
+        app: hl-nvp3
+        tier: non-validating-peer
+        version: "08122016"
+        environment: development
+        provider: gke
+        node: "node-vp3"
+        
+    # Container Specifications
+    spec:         
+      containers:
+      - name: nvp3
+        
+        # Fabric Peer docker image for Hyperledger Project
+        # https://github.com/hyperledger/fabric
+        # image: hyperledger/fabric-peer:latest
+        image: jamesbuckett/fabric-peer:08122016
+        imagePullPolicy: Always
+        
+        # Readiness Check
+        # Due to size of Hyperledger images allow some time for image download
+        # The readiness probe will not be called until 60 seconds after the all containers in the pod are created. 
+        # The readiness probe must respond within the 5 second timeout.
+        readinessProbe:
+          httpGet:
+            # Ready Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+        
+        # Start as peer node
+        command:
+          - "peer"
+        args:
+          - "node"
+          - "start"
+        
+        # Environment
+        env:
+          # Set this validating node as nvp0
+          - name: CORE_PEER_ID
+            value: "nvp3"
+          # Root Node Service Location
+          - name: CORE_PEER_DISCOVERY_ROOTNODE
+            # value: "svc-hl-vp0.default.svc.cluster.local:30303"
+            value: "svc-hl-vp0.hyperledger.svc.cluster.local:30303"
+          - name: CORE_PEER_ADDRESSAUTODETECT
+            value: "false"
+          # Service name for the nvp0  
+          - name: CORE_PEER_ADDRESS
+            # value: "svc-hl-nvp3.default.svc.cluster.local:30303"
+            value: "svc-hl-nvp3.hyperledger.svc.cluster.local:30303"            
+          - name: CORE_PEER_NETWORKID
+            value: "dev"
+          - name: CORE_LOGGING_LEVEL
+            # value: "debug"
+            value: chaincode=debug:vm=debug:main=info
+            # Enable pbft consensus
+          - name: CORE_PEER_VALIDATOR
+            value: "false"
+          - name: CORE_PBFT_GENERAL_MODE
+            value: "batch"
+          - name: CORE_PBFT_GENERAL__BATCHSIZE
+            value: "2"                
+            # Four nodes minimum for pbft protocol
+          - name: CORE_PBFT_GENERAL_N
+            value: "4"
+          - name: CORE_PBFT_GENERAL_TIMEOUT_REQUEST
+            value: "10s"
+          - name: CORE_CHAINCODE_STARTUPTIMEOUT
+            value: "10000"
+          - name: CORE_CHAINCODE_DEPLOYTIMEOUT
+            value: "120000"
+            # Location for Chain Code Docker Engine
+            # Change this value to match your environment
+          - name: CORE_VM_ENDPOINT
+            value: "http://x.x.x.x:2375"
+        
+        # Health Check
+        livenessProbe:
+          httpGet:
+            # Health Check via REST interface to /chain 
+            path: "/chain"
+            port: 5000
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+        
+        # Communication Ports
+        ports:
+          # Peer service listening port
+          - containerPort: 30303
+          # CLI process use it for callbacks from chain code
+          - containerPort: 30304
+          # Event service on validating node
+          - containerPort: 31315
+          # REST service listening port
+          - containerPort: 5000
+          
+      # Assign this pod to node-vp0 for node resilence
+      nodeSelector:
+        node: node-vp3

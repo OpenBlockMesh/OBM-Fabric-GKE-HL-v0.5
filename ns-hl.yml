@@ -1,0 +1,9 @@
+# kubectl create -f ns-hl.yml
+
+# hyperledger namespace
+
+apiVersion: v1 
+kind: Namespace 
+
+metadata: 
+  name: hyperledger
