@@ -46,6 +46,8 @@ These images are used in this project to build the fabric and run the chain code
 
 The fabric will be installed into a "hyperledger" namespace to provide soft multi-tenancy and isolation.
 
+![Overview](https://github.com/OpenBlockMesh/OBM-Fabric/blob/master/overview.jpg)
+
 Four Validating Peers are built so a single failure can be tolerated in the Fabric.
 
 They are identified as : vp0 (root node), vp1, vp2 and vp3.
