@@ -211,7 +211,7 @@ This is the CORE_VM_ENDPOINT instance
 Under the Compute tab..Compute Engine
 
 * Create Instance
-* Instance Name : core_vm_endpoint
+* Instance Name : core-vm-endpoint
 * Select the same zone as selected above for the hyperledger-cluster cluster.
 * The default machine type of 1vCPU  and 3.75 GB RAM is sufficient for initial development.
 * Boot Disk :  Ubuntu 16.04 LTS
