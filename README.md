@@ -341,7 +341,7 @@ Place your "ens4" interface value in the x.x.x.x in each file.
 
 **Installation**
 
-Clone the OBM-Fabric project to the system running kubectl.
+Go to the system running gcloud and kubectl and clone the OBM-Fabric project.
 
 ```
 git clone https://github.com/OpenBlockMesh/OBM-Fabric.git
@@ -356,6 +356,8 @@ Edit the svc-hosts.sh and update with your "your_project" and "your_zone" detail
 vi svc-hosts.sh
 ```
 gcloud compute --project "your_project" ssh --zone "your_zone" "core-vm-endpoint" "sed -i -e 's|.*svc-.*||g' /etc/hosts"
+gcloud compute --project "your_project" copy-files --zone "your_zone" /tmp/svc-hosts core-vm-endpoint:.
+gcloud compute --project "your_project" ssh --zone "your_zone" "core-vm-endpoint" "cat svc-hosts >>/etc/hosts"
 ```
 
 Run hl-install.sh to create the hyperledger fabric.
