@@ -505,9 +505,9 @@ Obtain the name of a running pod
 kubectl get pods
 ```
 
-Exec into the pod (use a pod nane from kubectl get pods) 
+Exec into the pod (use a pod name from kubectl get pods) 
 ```
-kubectl exec -it dep-pod-hl-nvp0-<xxxxx> bash
+kubectl exec -it dep-pod-hl-vp0-<xxxxx> bash
 ```
 
 Execute Set Chain Code Example
@@ -523,8 +523,9 @@ peer chaincode query -n a5389f7dfb9efae379900a41db1503fea2199fe400272b61ac5fe7bd
 Sample Output
 
 ```
-peer chaincode query -n a5389f7dfb9efae379900a41db1503fea2199fe400272b61ac5fe7bd0c6b97cf10ce3aa8dd00cd7626ce02f18accc7e5f2059dae6eb0786838042958352b89fb  -c '{"Function": "query", "Args": ["a"]}'
+23:20:03.785 [main] chaincodeInvokeOrQuery -> INFO 001 Successfully queried transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"a5389f7dfb9efae379900a41db1503fea2199fe400272b61ac5fe7bd0c6b97cf10ce3aa8dd00cd7626ce02f18accc7e5f2059dae6eb0786838042958352b89fb" > ctorMsg:<function:"query" args:"a" > >
 100
+23:20:03.786 [main] main -> INFO 002 Exiting.....
 ```
 
 
