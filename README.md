@@ -367,6 +367,9 @@ Edit these files and update with IP Address of the core-vm-endpoint
 
 Run hl-install.sh to create the hyperledger fabric.
 
+Watch the fabric being built with this command : 
+* watch kubectl get --namespace=hyperledger ns,pods,ds,rs,rc,svc
+
 Sample output from hl-install.sh
 
 ```
