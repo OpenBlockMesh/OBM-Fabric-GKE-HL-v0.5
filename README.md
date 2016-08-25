@@ -146,7 +146,8 @@ Select Connect to the cluster to get access details.
 Install gcloud on the linux system you wish to access your cluster from.
 * wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-122.0.0-linux-x86_64.tar.gz
 * sudo apt-get -y install python
-* tar -zxvf https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-122.0.0-linux-x86_64.tar.gz
+* tar -zxvf google-cloud-sdk-122.0.0-linux-x86_64.tar.gz
+* cd google-cloud-sdk
 * ./install.sh
 
 Logout and login for profile changes to take effect.
