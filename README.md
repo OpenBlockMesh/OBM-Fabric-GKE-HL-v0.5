@@ -550,7 +550,7 @@ Sample Output
 
 
 
-**Troubleshoot*ing* 
+**Troubleshooting** 
 
 If you experience any issues please check the hosts file on the core-vm-endpoint.
 If there was a delay in assigning external IP addresses sometimes there will be "PENDING" entries in the hosts file as opposed to the correct IP entries.
