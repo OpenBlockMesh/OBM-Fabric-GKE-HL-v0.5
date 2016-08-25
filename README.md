@@ -548,7 +548,9 @@ Sample Output
 23:20:03.786 [main] main -> INFO 002 Exiting.....
 ```
 
-*Troubleshooting* 
+
+
+**Troubleshoot*ing* 
 
 If you experience any issues please check the hosts file on the core-vm-endpoint.
 If there was a delay in assigning external IP addresses sometimes there will be "PENDING" entries in the hosts file as opposed to the correct IP entries.
