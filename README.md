@@ -220,6 +220,9 @@ Under the Compute tab..Compute Engine
 
 Install docker on the GCE instance :
 
+Connect to the GCE instance via 
+* gcloud compute --project "hyperledger-xxxxxx" ssh --zone "asia-east1-a" "core-vm-endpoint"
+
 Use this site for instructions to setup Docker on Ubuntu : 
 * https://docs.docker.com/engine/installation/linux/ubuntulinux/
 
