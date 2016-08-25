@@ -359,6 +359,11 @@ gcloud compute --project "your_project" ssh --zone "your_zone" "core-vm-endpoint
 gcloud compute --project "your_project" copy-files --zone "your_zone" /tmp/svc-hosts core-vm-endpoint:.
 gcloud compute --project "your_project" ssh --zone "your_zone" "core-vm-endpoint" "cat svc-hosts >>/etc/hosts"
 ```
+Edit these files and update with IP Address of the core-vm-endpoint
+* dep-hl-nvp.yml (four occurrences to be changed)
+* dep-hl-vp1-3.yml  (three occurrences to be changed)
+* dep-hl-vp0.yml (one occurrence to be changed)
+
 
 Run hl-install.sh to create the hyperledger fabric.
 
