@@ -548,5 +548,20 @@ Sample Output
 23:20:03.786 [main] main -> INFO 002 Exiting.....
 ```
 
+*Troubleshooting* 
+
+If you experience any issues please check the hosts file on the core-vm-endpoint.
+If there was a delay in assigning external IP addresses sometimes there will be "PENDING" entries in the hosts file as opposed to the correct IP entries.
+Execute "kubectl get svc" to a list of the correct IP addresses to place in the /etc/hosts file
+
+On core-vm-endpoint install Docker v1.11
+Due to : https://github.com/hyperledger/fabric/issues/2044
+* sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+* shutdown -r 0 
+* apt-get install docker-engine=1.11.2-0~xenial
+* sudo apt-mark hold docker-engine
+* sudo rm -rf /var/lib/docker/network/files
+* docker version
+
 
 **End of Section**
