@@ -142,6 +142,8 @@ Under the Compute tab..Container Engine
 Click on the cluster.
 
 Select Connect to the cluster to get access details.
+Copy the value it should be similar to this : 
+* gcloud container clusters get-credentials hyperledger-cluster --zone asia-east1-a --project hyperledger-xxxxxx
 
 Install gcloud on the linux system you wish to access your cluster from.
 * wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-122.0.0-linux-x86_64.tar.gz
@@ -153,8 +155,10 @@ Install gcloud on the linux system you wish to access your cluster from.
 Logout and login for profile changes to take effect.
 
 Setup gcloud : 
-* gcloud login
+* gcloud auth login
+* Enter verification codegin
 * gcloud components install kubectl
+* gcloud container clusters get-credentials hyperledger-cluster --zone asia-east1-a --project hyperledger-xxxxxx
 
 Once kubectl is installed use this command to get a list of your nodes "kubectl get nodes"
 
