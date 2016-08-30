@@ -319,8 +319,8 @@ Check the images are present via docker images :
 ```
 root@core-vm-endpoint:~# docker images
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
-hyperledger/fabric-baseimage    latest              11fb0c8f5043        10 days ago         1.687 GB
-jamesbuckett/fabric-baseimage   08122016            11fb0c8f5043        10 days ago         1.687 GB
+hyperledger/fabric-baseimage    latest              44cb1e400202        3 days ago          1.688 GB
+jamesbuckett/fabric-baseimage   08262016            44cb1e400202        3 days ago          1.688 GB
 ```
 
 This GCE instance becomes the CORE_VM_ENDPOINT to execute chaincode.
