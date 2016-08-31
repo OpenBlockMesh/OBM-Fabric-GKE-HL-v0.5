@@ -1,0 +1,7 @@
+# kubectl create -f ns-mgt.yml
+
+apiVersion: v1 
+kind: Namespace 
+
+metadata: 
+  name: management

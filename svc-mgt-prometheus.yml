@@ -1,0 +1,31 @@
+# Kubernetes Manifest file to create a Prometheus Service
+# Date : 18-08-2016
+# Version 0.1
+# Author : James Buckett (james.buckett@au1.ibm.com)
+# Commissioned by ANZ Bank under direction of Ben Smillie (Ben.Smillie@anz.com)
+
+apiVersion: v1        
+kind: Service
+
+metadata:
+  # Prometheus Service Definition 
+  name: svc-mgt-prometheus
+  # Change this after testing to namespace: management
+  namespace: management
+  labels:
+    app: prometheus
+    tier: management
+spec:
+  type: LoadBalancer
+
+  ports:
+    # 9090: Prometheus listening port
+  - name: prometheus-service
+    port: 9090
+    targetPort: 9090 
+
+  # Like the selector in the replication controller,
+  # but this time it identifies the set of Hyperledger 
+  # pods to load balance traffic to.
+  selector:
+    app: prometheus
