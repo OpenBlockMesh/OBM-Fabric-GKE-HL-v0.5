@@ -12,6 +12,8 @@ echo "Create hyperleder namespace"
 kubectl create -f ns-hl.yml
 sleep 5
 
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=hyperledger
 
 echo "Installing Fabric Services"
 echo "The long wait is for GKE to assign EXTERNAL-IP"
