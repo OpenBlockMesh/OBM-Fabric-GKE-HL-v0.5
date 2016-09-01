@@ -648,6 +648,7 @@ Miscellaneous useful alias commands.
 
 `alias kube-mgt='kubectl get --namespace=management ns,pods,ds,rs,rc,svc`
 
+
 Miscellaneous useful commands.
 
 Switch context to `hyperledger` namespace.
@@ -662,7 +663,9 @@ Switch context to `hyperledger` namespace.
 ## Troubleshooting 
 
 If you experience any issues please check the hosts file on the core-vm-endpoint.
+
 If there was a delay in assigning external IP addresses sometimes there will be "PENDING" entries in the hosts file as opposed to the correct IP entries.
+
 Execute "kubectl get svc" to a list of the correct IP addresses to place in the /etc/hosts file
 
 
