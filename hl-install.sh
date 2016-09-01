@@ -16,7 +16,7 @@ export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
 kubectl config set-context $CONTEXT --namespace=hyperledger
 
 echo "Installing Fabric Services"
-echo "The long wait is for GKE to assign EXTERNAL-IP"
+echo "The wait is for GKE to assign EXTERNAL-IP"
 kubectl create -f svc-hl-vp.yml
 sleep 5
 kubectl create -f svc-hl-nvp.yml
