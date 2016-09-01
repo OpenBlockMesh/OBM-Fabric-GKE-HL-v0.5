@@ -8,6 +8,9 @@
 
 clear
 
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=management
+
 echo "Deleting Deployment"
 kubectl delete --namespace=management -f dep-mgt-prometheus.yml
 
