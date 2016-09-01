@@ -4,6 +4,9 @@
 
 clear
 
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=hyperledger
+
 echo "Installing Validating Peer 0"
 kubectl create -f dep-hl-vp0.yml
 sleep 120
