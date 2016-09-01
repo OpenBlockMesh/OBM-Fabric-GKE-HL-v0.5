@@ -140,7 +140,7 @@ Under the Compute tab..Container Engine
 * Select a zone geographically close to your location to ensure low network latency.
 * The default machine type of 1vCPU  and 3.75 GB RAM is sufficient for initial development.
 * Consider larger systems if you encounter resource constraints.
-* Select `4` under Size, this eqates to 4 VM instances.
+* Select `4` under Size, this equates to 4 VM instances.
 * One VM Instance (node) for each Validating Peer.
 
 Click on the cluster.
