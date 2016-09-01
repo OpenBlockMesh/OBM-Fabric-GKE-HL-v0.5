@@ -8,9 +8,12 @@
 
 clear
 
-echo "Create management namespace"
+echo "Create Management Namespace"
 kubectl create -f ns-mgt.yml
 sleep 5
+
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=management
 
 echo "Installing Management Services"
 kubectl create -f svc-mgt-prometheus.yml
