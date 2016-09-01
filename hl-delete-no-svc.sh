@@ -4,6 +4,9 @@
 
 clear
 
+export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
+kubectl config set-context $CONTEXT --namespace=hyperledger
+
 echo "Deleting Non Validating Peers NVP1-NVP3"
 kubectl  delete -f  dep-hl-nvp.yml
 
