@@ -127,7 +127,7 @@ This guide is build using
 ## Kubernete Project Quotas
 Request the following additional quotas:
 
-* 30 In-use IP addresses
+* Up to 30 In-use IP addresses
 
 
 ### Container Fabric Setup
@@ -253,6 +253,8 @@ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
 
 ```
 deb https://apt.dockerproject.org/repo ubuntu-xenial main
+```
+
 ```
 sudo apt-get update
 sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual -y
