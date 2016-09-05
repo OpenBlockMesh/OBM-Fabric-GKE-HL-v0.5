@@ -357,7 +357,7 @@ Once you have cloned the project in the next section update  the CORE_VM_ENDPOIN
 
 Sample sed command replace x.x.x.x with your GCE address.
 ```
-sed -i 's|value.*2375"|value: "x.x.x.x:2375"|g' *yml
+sed -i 's|value.*2375"|value: "http://x.x.x.x:2375"|g' *yml
 ```
 
 Replace this value in the yml files.
