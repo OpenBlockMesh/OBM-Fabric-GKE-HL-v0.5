@@ -380,7 +380,6 @@ Go to the system running gcloud and kubectl and clone the OBM-Fabric project.
 git clone https://github.com/OpenBlockMesh/OBM-Fabric.git
 cd OBM-Fabric
 chmod +x hl-install.sh hl-delete.sh svc-hosts.sh
-
 ```
 
 Edit the `svc-hosts.sh` and update with your "your_project" and "your_zone" details
