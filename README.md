@@ -346,7 +346,7 @@ jamesbuckett/fabric-baseimage   08262016            44cb1e400202        3 days a
 
 This GCE instance becomes the CORE_VM_ENDPOINT to execute chaincode.
 
-Record the Public IP Address of your GCE instance to use with the CORE_VM_ENDPOINT environmental variable.
+Record the Private IP Address of your GCE instance to use with the CORE_VM_ENDPOINT environmental variable.
 
 Use the `ip a` command to get the IP Address of the `ens4` interface.
 
