@@ -650,10 +650,8 @@ API server reports its overall request count.
 
 * `sum(rate(apiserver_request_count[1m]))`
 
-Credit to this article for the Prometheus content.  
-
-https://coreos.com/blog/monitoring-kubernetes-with-prometheus.html
-
+Credit to this [article](https://coreos.com/blog/monitoring-kubernetes-with-prometheus.html
+) for the Prometheus content.
 
 
 ## Miscellaneous  
