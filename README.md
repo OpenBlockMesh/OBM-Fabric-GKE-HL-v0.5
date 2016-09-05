@@ -391,11 +391,6 @@ gcloud compute --project "your_project" ssh --zone "your_zone" "core-vm-endpoint
 ```
 
 
-Edit these files and update with IP Address of the core-vm-endpoint
-* dep-hl-nvp.yml (four occurrences to be changed)
-* dep-hl-vp1-3.yml  (three occurrences to be changed)
-* dep-hl-vp0.yml (one occurrence to be changed)
-
 
 ### hl-install.sh
 
