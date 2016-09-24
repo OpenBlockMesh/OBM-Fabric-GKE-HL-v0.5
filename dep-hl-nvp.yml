@@ -92,7 +92,7 @@ spec:
             value: "false"
           - name: CORE_PBFT_GENERAL_MODE
             value: "batch"
-          - name: CORE_PBFT_GENERAL__BATCHSIZE
+          - name: CORE_PBFT_GENERAL_BATCHSIZE
             value: "2"                
             # Four nodes minimum for pbft protocol
           - name: CORE_PBFT_GENERAL_N
@@ -216,7 +216,7 @@ spec:
             value: "false"
           - name: CORE_PBFT_GENERAL_MODE
             value: "batch"
-          - name: CORE_PBFT_GENERAL__BATCHSIZE
+          - name: CORE_PBFT_GENERAL_BATCHSIZE
             value: "2"                
             # Four nodes minimum for pbft protocol
           - name: CORE_PBFT_GENERAL_N
@@ -340,7 +340,7 @@ spec:
             value: "false"
           - name: CORE_PBFT_GENERAL_MODE
             value: "batch"
-          - name: CORE_PBFT_GENERAL__BATCHSIZE
+          - name: CORE_PBFT_GENERAL_BATCHSIZE
             value: "2"                
             # Four nodes minimum for pbft protocol
           - name: CORE_PBFT_GENERAL_N
@@ -464,7 +464,7 @@ spec:
             value: "false"
           - name: CORE_PBFT_GENERAL_MODE
             value: "batch"
-          - name: CORE_PBFT_GENERAL__BATCHSIZE
+          - name: CORE_PBFT_GENERAL_BATCHSIZE
             value: "2"                
             # Four nodes minimum for pbft protocol
           - name: CORE_PBFT_GENERAL_N
